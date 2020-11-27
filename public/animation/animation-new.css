@@ -1,0 +1,47 @@
+.box .content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: pink;
+  }
+  
+  .box {
+    width: 360px;
+    height: 420px;
+    box-sizing: border-box;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+
+  }
+  
+  .box::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: repeating-linear-gradient(
+        #fbb300 0%,
+        #d53e33 7.5px,
+        #fff 7.5px,
+        #fff 15px,
+        #377af5 15px,
+        #399953 22.5px,
+        #fff 22.5px,
+        #fff 30px);
+    transform: translateX(-20%) translateY(-20%) rotate(-45deg);
+    animation: animate 20s linear infinite;
+  }
+  
+  
+  @keyframes animate {
+    from {
+      background-position: 0;
+    }
+  
+    to {
+      background-position: 0 450px;
+    }
+  }
