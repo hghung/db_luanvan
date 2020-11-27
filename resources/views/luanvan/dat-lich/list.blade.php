@@ -25,23 +25,23 @@ style2 menu-fixed main-menu
 										<div class="candidate_revew_search_box course fn-520">
 											<form class="form-inline my-2">
 												<input id="timkiem" type="text" value="" name="search" class="form-control" placeholder="Tìm kiếm">
-												
 										    	<button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-magnifying-glass"></span></button>
 										    </form>
 										</div>
 									</li>
-									{{--    --}}
+									{{--   --}}
 									<li class="list-inline-item">
-										<select class="selectpicker show-tick">
-											<option>Featured First</option>
-											<option>Recent</option>
-											<option>Old Review</option>
+										<select class="selectpicker show-tick" id="boloc">
+											<option value="all">Tất cả</option>
+											<option value="1">Đợi duyệt</option>
+											<option value="2">Đã duyệt</option>
+											<option value="3">Đã hủy</option>
 										</select>
 									</li>
 								</ul>
 							</div>
 						</div>
-						<div class="col-lg-12">
+						<div class="col-lg-12" id="route" data="{{route('datlich.boloc',0)}}">
 							<div class="my_dashboard_review mb40">
 								<div class="property_table">
 									<div class="table-responsive mt0">
@@ -55,7 +55,7 @@ style2 menu-fixed main-menu
 										    		<th scope="col" width="12%">Thao tác</th>
 										    	</tr>
 											</thead>
-											<tbody >
+											<tbody id="table">
 												@foreach($datlich as $row)
 												<tr>
 													<th scope="row">
@@ -108,22 +108,23 @@ style2 menu-fixed main-menu
 													<td>{{$row->idkhachhang->name}}</td>
 													
 													<td>
-													<div class="btn-group">
+														<div class="btn-group">
 														@if($row->id_trangthai == 1)
 															<button type="button" class="btn btn-warning">Đợi duyệt</button>
 															<button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 																<span class="sr-only">Toggle Dropdown</span>
 															</button>
 															<div class="dropdown-menu">
-																<a class="dropdown-item" href="{{ route('datlich.pheduyet',['id' => $row->id]) }}">Phê duyệt</a>
-																<a class="dropdown-item" href="{{ route('datlich.huy',['id' => $row->id]) }}">Hủy</a>
+																<a class="dropdown-item" href="{{ route('datlich.pheduyet',['id' => 2]) }}">Phê duyệt</a>
+																<a class="dropdown-item" href="{{ route('datlich.huy',['id' => 3]) }}">Hủy</a>
 														  	</div>
-														</div>
 														@elseif($row->id_trangthai == 2)
-														<button type="button" class="btn btn-success">Đã duyệt</button>
+															<button type="button" class="btn btn-success">Đã duyệt</button>
 														@elseif($row->id_trangthai == 3)
-														<button type="button" class="btn btn-danger">Đã hủy</button>
+															<button type="button" class="btn btn-danger">Đã hủy</button>
 														@endif
+														</div>
+
 													</td>
 
 													<td>
@@ -153,11 +154,59 @@ style2 menu-fixed main-menu
             
 
     <script src="{{asset('public/jquery2.0.3.min.js')}}" type="text/javascript"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
             
     {!! Toastr::message() !!}
    
 
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var route = $('#route').attr('data');
+			//console.log(route);
+			//kiểm tra xem coi nó chạy không
+			$("#boloc").change(function(){
+				var id_boloc = $(this).val();
+				//alert(id_boloc);
+				// kiểm tra xem có chạy được nhận id option của loaibaiban không
+				$.get(route+id_boloc,function(data){
+					// alert(data);
+					$("#table").html(data);
+					$('#table').selectpicker('refresh');
+					// phải câu lênh selectpicker('refresh') để ko bị lỗi boostrap-selecet
+				});
+			});
+
+		});
+	</script>
+
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+	
+		 fetch_customer_data();
+	
+		 function fetch_customer_data(query = '')
+		 {
+		  $.ajax({
+		   url:"{{ route('datlich.timkiem') }}",
+		   method:'GET',
+		   data:{query:query},
+		   dataType:'json',
+		   success:function(data)
+		   {
+			$('#table').html(data.banhbao);
+			$('#total_records').text(data.total_data);
+		   }
+		  })
+		 }
+	
+		 $(document).on('keyup', '#timkiem', function(){
+		  var query = $(this).val();
+		  fetch_customer_data(query);
+		 });
+		});
+    </script>
 
 	
 @endsection

@@ -1280,7 +1280,132 @@ class TimkiemController extends Controller
         }
     }
     // sanpham end
-    
+    // datlich
+    // public function timkiem_datlich(Request $request)
+    // {
+    //     if($request->ajax())
+    //     {
+    //       $output = '';
+    //       $query = $request->get('query');
+    //       if($query != '')
+    //       {
+    //         $data = db_datlich::where('ma_datlich', 'like', '%'.$query.'%')
+    //                           ->orderBy('cap_nhat', 'desc')
+    //                           ->get();
+    //       }
+    //       else
+    //       {
+    //         $data = db_datlich::orderBy('cap_nhat', 'desc')
+    //                         ->get();
+            
+    //       }
+    //       $total_row = $data->count();
+    //       if($total_row > 0)
+    //       {
+    //         foreach($data as $row)
+    //         {
+    //           $output .= '
+    //             <tr>
+    //               <th scope="row">
+    //                   <div class="feat_property list favorite_page style2">
+    //                       <div class="thumb">
+    //                           <img class="img-whp" src="'.asset($row->idbantin->bds->path_hinh).'" alt="fp1.jpg">
+    //                       </div>
+    //                       <div class="details">
+    //                           <div class="tc_content">
+    //                           <div class="row">
+    //                               <h4 style="margin-left: 20px; margin-right:20px;">'.$row->idbantin->tieu_de.'</h4>
+    //                               ';
+    //                               if($row->idbantin->hinhthuc->ten_hinhthuc == 'Thuê')
+    //                               {
+    //                                   $output .='<span class="status_tag badge" style="background-color: '.$row->idbantin->hinhthuc->mau_sac.'">
+    //                                   '.$row->idbantin->hinhthuc->ten_hinhthuc.'
+    //                                 </span>';
+    //                               }
+    //                               elseif($row->idbantin->hinhthuc->ten_hinhthuc == 'Bán')
+    //                               {
+    //                                 $output .='<span class="status_tag badge" style="background-color: '.$row->idbantin->hinhthuc->mau_sac.'">
+    //                                 '.$row->idbantin->hinhthuc->ten_hinhthuc.'
+    //                               </span>';
+    //                               }
+
+    //                           $output .= '
+    //                           </div>
+    //                               <p><span class="flaticon-placeholder"></span>'.$row->idbantin->bds->dia_chi.'</p>
+    //                               <a class="fp_price text-thm" href="#">'.number_format($row->idbantin->gia_tien,0,',','.').' đ';
+    //                               if($row->idbantin->hinhthuc->ten_hinhthuc == 'Thuê')
+    //                               {
+    //                                   $output .='<small>/th</small></a>';
+    //                               }
+    //                               $output .='
+    //                           </div>
+    //                       </div>
+    //                   </div>
+    //               </th>
+    //               <td>'.date("d-m-Y",strtotime($row->gio_hen)).'</td>
+
+		// 							<td>'.$row->idkhachhang->name.'</td>
+
+    //               <td>
+                  
+    //                 <div class="btn-group">
+    //               ';
+                    
+    //                 if($row->id_trangthai == 1)
+    //                 {
+    //                   $output .='
+    //                   <button type="button" class="btn btn-warning">Đợi duyệt</button>
+    //                   <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    //                     <span class="sr-only">Toggle Dropdown</span>
+    //                   </button>
+    //                   <div class="dropdown-menu">
+    //                     <a class="dropdown-item" href="'. route('datlich.pheduyet',['id' => $row->id]) .'">Phê duyệt</a>
+    //                     <a class="dropdown-item" href="'. route('datlich.huy',['id' => $row->id]) .'">Hủy</a>
+    //                     </div>
+    //                     ';
+    //                 }
+    //                 elseif($row->id_trangthai == 2)
+    //                 {
+    //                   $output .='
+    //                   <button type="button" class="btn btn-success">Đã duyệt</button>
+    //                   ';
+    //                 }
+    //                 elseif($row->id_trangthai == 3)
+    //                 {
+    //                   $output .='
+    //                   <button type="button" class="btn btn-danger">Đã hủy</button>
+
+    //                   ';
+
+    //                 }
+    //               $output .= '
+    //                   </div>
+    //                 <td>
+    //                   <ul class="view_edit_delete_list mb0">
+    //                     <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Nhắn tin"><a href="#"><i class="fa fa-comments" style="color: #335de9; font-size: 20px;"></i></a></li>
+    //                   </ul>
+    //                 </td>
+    //           </tr>
+    //           ';
+    //         }
+    //       }
+    //       else
+    //       {
+    //         $output = '
+    //         <div>
+    //         Chưa có dữ liệu !
+    //         </div>
+    //         ';
+    //       }
+    //       $data = array(
+    //         'banhbao'  => $output,
+    //         'total_data'  => $total_row
+    //       );
+  
+    //       echo json_encode($data);
+    //     }
+    // }
+    // enđatlich
     
 
    

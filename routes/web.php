@@ -28,6 +28,7 @@ Route::get('/test4','TestController@test4');
 
 
 
+
 //dropzone
 Route::get('/item/create', 'ItemController@create');
 
@@ -116,6 +117,8 @@ Route::group(['prefix'=>'tai-khoan','middleware'=>'login_account'],function(){
 		// trangthai
 		Route::get('/phe-duyet-{id}','BookingController@phe_duyet')->name('datlich.pheduyet');
 		Route::get('/huy-{id}','BookingController@huy_duyet')->name('datlich.huy');
+		// ajax boloc
+		Route::get('/bo-loc/{id}','BookingController@ajax_boloc')-> name('datlich.boloc');
 
 	});
 
