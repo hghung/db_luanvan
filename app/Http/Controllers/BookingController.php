@@ -6,6 +6,7 @@ use App\Models\db_datlich;
 use App\Models\db_bantin;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Facades\Auth;
+
 use Toastr;
 
 use Carbon\Carbon;
@@ -23,10 +24,11 @@ class BookingController extends Controller
             $datlich->gio_hen = $rq->gio_hen;
             $datlich->ngay_tao = Carbon::now('Asia/Ho_Chi_Minh');
             $datlich->cap_nhat = Carbon::now('Asia/Ho_Chi_Minh');
-            $datlich->id_trangthaithai = 1; // dang xu li
+            $datlich->id_trangthai = 1; // dang xu li
             $datlich->id_bantin = $id;
             $datlich->id_nguoidang = $bantin->user->id;
             $datlich->id_khachhang = Auth::user()->id;
+            // dd($datlich);
             $datlich->save();
             Toastr::success('Đặt lịch thành công chờ người đăng xử lí', 'Thông báo', ["positionClass" => "toast-top-right"]);
         }
@@ -136,8 +138,8 @@ class BookingController extends Controller
                                     <span class='sr-only'>Toggle Dropdown</span>
                                 </button>
                                 <div class='dropdown-menu'>
-                                    <a class='dropdown-item' href='". route('datlich.pheduyet',['id' => 2]) ."'>Phê duyệt</a>
-                                    <a class='dropdown-item' href='". route('datlich.huy',['id' => 3]) ."'>Hủy</a>
+                                    <a class='dropdown-item' href='". route('datlich.pheduyet',['id' => $row->id]) ."'>Phê duyệt</a>
+                                    <a class='dropdown-item' href='". route('datlich.huy',['id' => $row->id]) ."'>Hủy</a>
                                 </div>
                                ";
                             }
@@ -247,8 +249,8 @@ class BookingController extends Controller
                                     <span class='sr-only'>Toggle Dropdown</span>
                                 </button>
                                 <div class='dropdown-menu'>
-                                    <a class='dropdown-item' href='". route('datlich.pheduyet',['id' => 2]) ."'>Phê duyệt</a>
-                                    <a class='dropdown-item' href='". route('datlich.huy',['id' => 3]) ."'>Hủy</a>
+                                    <a class='dropdown-item' href='". route('datlich.pheduyet',['id' => $row->id]) ."'>Phê duyệt</a>
+                                    <a class='dropdown-item' href='". route('datlich.huy',['id' => $row->id]) ."'>Hủy</a>
                                 </div>
                                ";
                             }
@@ -508,14 +510,17 @@ class BookingController extends Controller
 
     public function phe_duyet($id)
     {
-        $data = db_datlich::where('id',$id)->update(['id_trangthaithai'=>2]);
+        $data = db_datlich::where('id',$id)->update(['id_trangthai'=>2]);
+        $data = db_datlich::where('id',$id)->update(['cap_nhat'=>Carbon::now('Asia/Ho_Chi_Minh')]);
+
         Toastr::success('Đã phê duyệt', 'Thông báo', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }
 
     public function huy_duyet($id)
     {
-        $data = db_datlich::where('id',$id)->update(['id_trangthaithai'=>3]);
+        $data = db_datlich::where('id',$id)->update(['id_trangthai'=>3]);
+        $data = db_datlich::where('id',$id)->update(['cap_nhat'=>Carbon::now('Asia/Ho_Chi_Minh')]);
         Toastr::success('Đã phê duyệt', 'Thông báo', ["positionClass" => "toast-top-right"]);
         return redirect()->back();
     }

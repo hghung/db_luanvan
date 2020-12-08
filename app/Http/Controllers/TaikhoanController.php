@@ -41,6 +41,7 @@ class TaikhoanController extends Controller
     public function profile_update(Request $rq)
     {
         $update = User::find(Auth::user()->id);
+        $update->name = $rq->ho. " " .$rq->ten;
         $update->ho = $rq->ho;
         $update->ten = $rq->ten;
         $update->email = $rq->email;

@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\db_bantin;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +24,16 @@ Route::get('/test','TestController@test');
 Route::get('/test1','TestController@test2');
 Route::get('/test3','TestController@test3');
 Route::get('/test4','TestController@test4');
+// rating
+Route::get('posts', 'TestController@test6')->name('posts');
+Route::get('/test5/{id}','TestController@test5');
+Route::post('posts', 'TestController@postPost')->name('posts.post');
+
+
+Route::get('/test7','TestController@test7');
+Route::post('/test7','TestController@post_test7')->name('post.test7');
+
+
 
 
 
@@ -123,7 +132,7 @@ Route::group(['prefix'=>'tai-khoan','middleware'=>'login_account'],function(){
 	});
 
 	// chat
-	Route::group(['prefix'=>'tin-nhan'],function(){
+	Route::group(['prefix'=>'tin-nhan','middleware'=>'check_mess'],function(){
 		Route::get('/','ChatController@index')->name('chat.index');
 
 	}); 
@@ -565,3 +574,12 @@ Route::get('/luanvan',function(){
 
 ////////////////////////s
 Route::get('/update-{id}','UsersController@update_mk');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('userlist', 'MessageController@user_list')->name('user.list');
+Route::get('usermessage/{id}', 'MessageController@user_message')->name('user.message');
+Route::post('senemessage', 'MessageController@send_message')->name('user.message.send');
+Route::get('deletesinglemessage/{id}', 'MessageController@delete_single_message')->name('user.message.delete.single');
+Route::get('deleteallmessage/{id}', 'MessageController@delete_all_message')->name('user.message.delete.all');

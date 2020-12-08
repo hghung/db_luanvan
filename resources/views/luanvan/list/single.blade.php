@@ -4,10 +4,7 @@
 style2  navbar-scrolltofixed stricky main-menu
 @endsection
 @section('content')   
-
-
-
-
+<link rel="stylesheet" href="{{ asset('public/rateyo/jquery.rateyo.min.css') }}">
 
     <div class="single_page_listing_style">
         <div class="container-fluid p0">
@@ -354,18 +351,28 @@ style2  navbar-scrolltofixed stricky main-menu
                 </div>
                 <div class="col-md-12 col-lg-8 mt50">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="listing_single_description2 mt30-767 mb30-767">
+                        @php
+                            $tong = \App\Models\Rating::where('id_bantin','=',$bantin->id)->sum('rating');
+                            $count = \App\Models\Rating::where('id_bantin','=',$bantin->id)->count();
+                            if($tong != 0)
+                            {
+                                $total2 = $tong / $count;
+                            }
+                        @endphp
+                        <div class="col-lg-12" >
+                            <div class="listing_single_description2 mt30-767 mb30-767" style="padding-bottom:15px;">
                                 <div class="single_property_title">
-                                    <h2>{{ $bantin->tieu_de }} 
-                                    
-                                    </h2>
+                                    <h2>{{ $bantin->tieu_de }}</h2>
                                     <p>1421 San Pedro St, Los Angeles, CA 90015</p>
-                                
+                                    @if($tong != 0)
+                                    <div id="show_rateyo" data-rateyo-rating="{{ $total2  }}" style="margin-top:5px"></div>
+                                    @endif
                                 </div>
+                                
                                 <div class="single_property_social_share style2">
                                     <div class="price">
-                                        <h2>13,000đ<small>/tháng</small></h2>
+                                        <h2 >{{ number_format($bantin->gia_tien,0,',','.') }} <small>đ</small><small>/tháng</small></h2>
+
                                     </div>
                                 </div>
                             </div>
@@ -698,28 +705,6 @@ style2  navbar-scrolltofixed stricky main-menu
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="walkscore_area mt30">
-                                <h4 class="mb30">Walkscore <span class="float-right"><img src="{{ asset('public/luanvan/images/resource/wscore.png')}}" alt="wscore.png"></span></h4>
-                                <div class="iba_container">
-                                    <div class="icon_box_area">
-                                        <div class="score"><span>70</span></div>
-                                        <div class="details">
-                                            <h5>Walk Score</h5>
-                                            <p>Somewhat Walkable</p>
-                                        </div>
-                                    </div>
-                                    <div class="icon_box_area">
-                                        <div class="score"><span>40</span></div>
-                                        <div class="details">
-                                            <h5>Bike Score</h5>
-                                            <p>Bikeable</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a class="more_info" href="#">More Details Here</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
                             <div class="whats_nearby mt30">
                                 <h4 class="mb10">Whats Nearby</h4>
                                 <div class="education_distance mb15">
@@ -832,7 +817,8 @@ style2  navbar-scrolltofixed stricky main-menu
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        {{--  thong ke  --}}
+                        {{--  <div class="col-lg-12">
                             <div class="application_statics">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -874,6 +860,7 @@ style2  navbar-scrolltofixed stricky main-menu
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-12">
                             <div class="application_statics shop_single_tab_content style3 mt30">
                                 <ul class="nav nav-tabs float-right fn-414" id="myTab" role="tablist">
@@ -902,247 +889,22 @@ style2  navbar-scrolltofixed stricky main-menu
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="product_single_content">
-                                <div class="mbp_pagination_comments mt30">
-                                    <ul class="total_reivew_view">
-                                        <li class="list-inline-item sub_titles">896 Reviews</li>
-                                        <li class="list-inline-item">
-                                            <ul class="star_list">
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="list-inline-item avrg_review">( 4.5 out of 5 )</li>
-                                        <li class="list-inline-item write_review">Write a Review</li>
-                                    </ul>
-                                    <div class="mbp_first media">
-                                        <img src="{{ asset('public/luanvan/images/testimonial/1.png')}}" class="mr-3" alt="1.png">
-                                        <div class="media-body">
-                                            <h4 class="sub_title mt-0">Diana Cooper
-                                                <div class="sspd_review dif">
-                                                    <ul class="ml10">
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"></li>
-                                                    </ul>
-                                                </div>
-                                            </h4>
-                                            <a class="sspd_postdate fz14" href="#">December 28, 2020</a>
-                                            <p class="mt10">Beautiful home, very picturesque and close to everything in jtree! A little warm for a hot weekend, but would love to come back during the cooler seasons!</p>
-                                        </div>
-                                    </div>
-                                    <div class="custom_hr"></div>
-                                    <div class="mbp_first media">
-                                        <img src="{{ asset('public/luanvan/images/testimonial/2.png')}}" class="mr-3" alt="2.png">
-                                        <div class="media-body">
-                                            <h4 class="sub_title mt-0">Ali Tufan
-                                                <div class="sspd_review dif">
-                                                    <ul class="ml10">
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"></li>
-                                                    </ul>
-                                                </div>
-                                            </h4>
-                                            <a class="sspd_postdate fz14" href="#">December 28, 2020</a>
-                                            <p class="mt10">Beautiful home, very picturesque and close to everything in jtree! A little warm for a hot weekend, but would love to come back during the cooler seasons!</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="product_single_content">
-                                <div class="mbp_pagination_comments mt30">
-                                    <div class="mbp_comment_form style2">
-                                        <h4>Write a Review</h4>
-                                        <ul class="sspd_review">
-                                            <li class="list-inline-item">
-                                                <ul class="mb0">
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="list-inline-item review_rating_para">Your Rating & Review</li>
-                                        </ul>
-                                        <form class="comments_form">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleInputName1" aria-describedby="textHelp" placeholder="Review Title">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="12" placeholder="Your Review"></textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-thm">Submit Review <span class="flaticon-right-arrow-1"></span></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <h4 class="mt30 mb30">Similar Properties</h4>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="feat_property">
-                                <div class="thumb">
-                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp1.jpg')}}" alt="fp1.jpg">
-                                    <div class="thmb_cntnt">
-                                        <ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
-                                            <li class="list-inline-item"><a href="#">Featured</a></li>
-                                        </ul>
-                                        <ul class="icon mb0">
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                        </ul>
-                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p class="text-thm">Apartment</p>
-                                        <h4>Renovated Apartment</h4>
-                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                        <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
-                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
-                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="fp_footer">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item"><a href="#"><img src="{{ asset('public/luanvan/images/property/pposter1.png')}}" alt="pposter1.png"></a></li>
-                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                        </ul>
-                                        <div class="fp_pdate float-right">4 years ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="feat_property">
-                                <div class="thumb">
-                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp2.jpg')}}" alt="fp2.jpg">
-                                    <div class="thmb_cntnt">
-                                        <ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
-                                        </ul>
-                                        <ul class="icon mb0">
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                        </ul>
-                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p class="text-thm">Apartment</p>
-                                        <h4>Renovated Apartment</h4>
-                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                        <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
-                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
-                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="fp_footer">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
-                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                        </ul>
-                                        <div class="fp_pdate float-right">4 years ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="feat_property">
-                                <div class="thumb">
-                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp3.jpg')}}" alt="fp3.jpg">
-                                    <div class="thmb_cntnt">
-                                        <ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#">For Sale</a></li>
-                                        </ul>
-                                        <ul class="icon mb0">
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                        </ul>
-                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p class="text-thm">Apartment</p>
-                                        <h4>Renovated Apartment</h4>
-                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                        <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
-                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
-                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="fp_footer">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
-                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                        </ul>
-                                        <div class="fp_pdate float-right">4 years ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="feat_property">
-                                <div class="thumb">
-                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp1.jpg')}}" alt="fp1.jpg">
-                                    <div class="thmb_cntnt">
-                                        <ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
-                                            <li class="list-inline-item"><a href="#">Featured</a></li>
-                                        </ul>
-                                        <ul class="icon mb0">
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                        </ul>
-                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p class="text-thm">Apartment</p>
-                                        <h4>Renovated Apartment</h4>
-                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                        <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
-                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
-                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="fp_footer">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
-                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                        </ul>
-                                        <div class="fp_pdate float-right">4 years ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>  --}}
+                        {{--  end chart  --}}
+                        {{--  star cmt  --}}
+
+
+                        
+                        @comments(['model' => $bantin])
+                                    
+                                    
+                                
+                        
+                        {{--  end cmt  --}}
+                       
                     </div>
                 </div>
+
                 <div class="col-lg-4 col-xl-4 mt50">
                     <div class="sidebar_listing_list">
                         <div class="sidebar_advanced_search_widget">
@@ -1241,9 +1003,31 @@ style2  navbar-scrolltofixed stricky main-menu
                                     @endforeach
                                 @endif
                             </form>
-                            
-                                
-                                <link rel="stylesheet" href="{{ asset('public/jquery-ui-1.11.0/jquery-ui.theme.css') }}">
+                            @else
+                            <ul class="sasw_list mb0">
+                                <li class="search_area">
+                                    <div class="form-group ">
+                                        <input class="form-control" type="text" id="datepicker" name="ngay_hen" required>
+                                    </div>
+                                </li>
+                                <li class="search_area">
+                                    <div class="form-group">
+                                        <input class="form-control" type="time"  name="gio_hen" required>
+                                    </div>
+                                </li>
+                                <li class="search_area">
+                                    <div class="form-group">
+                                        <textarea name="noi_dung" class="form-control"  required="required" placeholder="Ghi chú"></textarea>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="search_option_button">
+                                        <a href="#" class="btn btn-block btn-thm" data-toggle="modal" data-target=".bd-example-modal-lg">Đăng nhập</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            @endif
+                            <link rel="stylesheet" href="{{ asset('public/jquery-ui-1.11.0/jquery-ui.theme.css') }}">
                                 <script src="{{ asset('public/jquery-ui-1.11.0/jquery-ui.js') }}"></script>
                                 <script>
                                     var dateToday = new Date(); 
@@ -1255,8 +1039,6 @@ style2  navbar-scrolltofixed stricky main-menu
                                         });
                                     });
                                 </script>
-                            
-                            @endif
                             {{--  dat lich  --}}
                         </div>
                     </div>
@@ -1640,17 +1422,248 @@ style2  navbar-scrolltofixed stricky main-menu
                         </div>
                     </div>
                 </div>
+
+                {{--  --}}
+                <div class="col-md-12 col-lg-12 mt50">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4 class="mt30 mb30">Similar Properties</h4>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="feat_property">
+                                <div class="thumb">
+                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp1.jpg')}}" alt="fp1.jpg">
+                                    <div class="thmb_cntnt">
+                                        <ul class="tag mb0">
+                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                            <li class="list-inline-item"><a href="#">Featured</a></li>
+                                        </ul>
+                                        <ul class="icon mb0">
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                        </ul>
+                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p class="text-thm">Apartment</p>
+                                        <h4>Renovated Apartment</h4>
+                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fp_footer">
+                                        <ul class="fp_meta float-left mb0">
+                                            <li class="list-inline-item"><a href="#"><img src="{{ asset('public/luanvan/images/property/pposter1.png')}}" alt="pposter1.png"></a></li>
+                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                                        </ul>
+                                        <div class="fp_pdate float-right">4 years ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="feat_property">
+                                <div class="thumb">
+                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp2.jpg')}}" alt="fp2.jpg">
+                                    <div class="thmb_cntnt">
+                                        <ul class="tag mb0">
+                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                        </ul>
+                                        <ul class="icon mb0">
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                        </ul>
+                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p class="text-thm">Apartment</p>
+                                        <h4>Renovated Apartment</h4>
+                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fp_footer">
+                                        <ul class="fp_meta float-left mb0">
+                                            <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
+                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                                        </ul>
+                                        <div class="fp_pdate float-right">4 years ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="feat_property">
+                                <div class="thumb">
+                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp3.jpg')}}" alt="fp3.jpg">
+                                    <div class="thmb_cntnt">
+                                        <ul class="tag mb0">
+                                            <li class="list-inline-item"><a href="#">For Sale</a></li>
+                                        </ul>
+                                        <ul class="icon mb0">
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                        </ul>
+                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p class="text-thm">Apartment</p>
+                                        <h4>Renovated Apartment</h4>
+                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fp_footer">
+                                        <ul class="fp_meta float-left mb0">
+                                            <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
+                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                                        </ul>
+                                        <div class="fp_pdate float-right">4 years ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="feat_property">
+                                <div class="thumb">
+                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp1.jpg')}}" alt="fp1.jpg">
+                                    <div class="thmb_cntnt">
+                                        <ul class="tag mb0">
+                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                            <li class="list-inline-item"><a href="#">Featured</a></li>
+                                        </ul>
+                                        <ul class="icon mb0">
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                        </ul>
+                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p class="text-thm">Apartment</p>
+                                        <h4>Renovated Apartment</h4>
+                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fp_footer">
+                                        <ul class="fp_meta float-left mb0">
+                                            <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
+                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                                        </ul>
+                                        <div class="fp_pdate float-right">4 years ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="feat_property">
+                                <div class="thumb">
+                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp3.jpg')}}" alt="fp3.jpg">
+                                    <div class="thmb_cntnt">
+                                        <ul class="tag mb0">
+                                            <li class="list-inline-item"><a href="#">For Sale</a></li>
+                                        </ul>
+                                        <ul class="icon mb0">
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                        </ul>
+                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p class="text-thm">Apartment</p>
+                                        <h4>Renovated Apartment</h4>
+                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fp_footer">
+                                        <ul class="fp_meta float-left mb0">
+                                            <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
+                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                                        </ul>
+                                        <div class="fp_pdate float-right">4 years ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="feat_property">
+                                <div class="thumb">
+                                    <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp1.jpg')}}" alt="fp1.jpg">
+                                    <div class="thmb_cntnt">
+                                        <ul class="tag mb0">
+                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                            <li class="list-inline-item"><a href="#">Featured</a></li>
+                                        </ul>
+                                        <ul class="icon mb0">
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                        </ul>
+                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p class="text-thm">Apartment</p>
+                                        <h4>Renovated Apartment</h4>
+                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fp_footer">
+                                        <ul class="fp_meta float-left mb0">
+                                            <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
+                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                                        </ul>
+                                        <div class="fp_pdate float-right">4 years ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     @include('luanvan.footer')
-
+    @section('loadbantin')
+    <script type="text/javascript" src="{{ asset('public/luanvan/js/isotop.js')}}"></script> 
+    @endsection
     <script src="{{asset('public/toastr/jquery.min.js')}}"></script>
 
     <script src="{{asset('public/toastr/toastr.min.js')}}" ></script>
-            
+       
     {!! Toastr::message() !!}
+    
     
     <script async defer 
         src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places&callback=initialize">
@@ -1667,9 +1680,9 @@ style2  navbar-scrolltofixed stricky main-menu
         function success(position)
         {
             var myLat = position.coords.latitude;
-            console.log(myLat); // lấy ra vị trí lat
+            //console.log(myLat); // lấy ra vị trí lat
             var myLong = position.coords.longitude;
-            console.log(myLong); // lấy ra vị trí long
+            //console.log(myLong); // lấy ra vị trí long
             var coords = new google.maps.LatLng(myLat,myLong);
             // gôm lat va long lại
             var hi2 = new google.maps.LatLng(lat,lng);
@@ -1761,5 +1774,38 @@ style2  navbar-scrolltofixed stricky main-menu
 
         }
     </script>
+
+    <script src="{{ asset('public/rateyo/jquery.rateyo.min.js') }}"></script>
+
+    <script>
+        $("#rateYo").rateYo({
+            numStars: 5,
+            starWidth: "25px",
+            spacing: "5px",
+            readOnly: true,
+
+        });
+
+        $("#show_rateyo").rateYo({
+            numStars: 5,
+            starWidth: "25px",
+            spacing: "5px",
+            readOnly: true,
+
+        });
+        
+        $("#insect_rateyo").rateYo({
+            spacing: "5px",
+            fullStar: true
+        });
+
+        $("#insect_rateyo").rateYo()
+          .on("rateyo.change", function (e, data) {
+            //rateyo.change ko thay doi dc
+            var rating2 = data.rating;
+            
+            $("#rating_insect").val(rating2);
+        });
+    </script>  
 
 @endsection

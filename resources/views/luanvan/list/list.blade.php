@@ -4,6 +4,8 @@
 style2  navbar-scrolltofixed stricky main-menu
 @endsection
 @section('content')
+<link rel="stylesheet" href="{{ asset('public/rateyo/jquery.rateyo.min.css') }}">
+
 <section class="home-two p0">
     <div class="container-fluid p0">
         <div class="row">
@@ -293,122 +295,103 @@ style2  navbar-scrolltofixed stricky main-menu
                     </div>
                 </div>
                 <div class="row">
-                    @foreach($bantin as $bantin2)
-                    <div class="col-md-6 col-lg-4">
-                        <div class="feat_property home7 style4">
-                            <div class="thumb">
-                                <div class="fp_single_item_slider">
-                                    <div class="item">
-                                        <img class="img-whp" src="{{ asset($bantin2->bds->path_hinh)}}" alt="fp1.jpg')}}">
+                        @foreach($bantin as $bantin2)
+                            @php
+                                $tong = \App\Models\Rating::where('id_bantin','=',$bantin2->id)->sum('rating');
+                                $count = \App\Models\Rating::where('id_bantin','=',$bantin2->id)->count();
+                                if($tong != 0)
+                                {
+                                    $total2 = $tong / $count;
+                                }
+                                
+                            @endphp
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feat_property home7 style4">
+                                <div class="thumb">
+                                    <div class="fp_single_item_slider">
+                                        <div class="item">
+                                            <img class="img-whp" src="{{ asset($bantin2->bds->path_hinh)}}" alt="fp1.jpg')}}">
+                                        </div>
+                                        <div class="item">
+                                            <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp2.jpg')}}" alt="fp2.jpg')}}">
+                                        </div>
                                     </div>
-                                    <div class="item">
-                                        <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp2.jpg')}}" alt="fp2.jpg')}}">
+                                    <div class="thmb_cntnt style2">
+                                        <ul class="tag mb0">
+                                            <li class="list-inline-item"><a href="#">{{ $bantin2->hinhthuc->ten_hinhthuc }}</a></li>
+                                            <li class="list-inline-item"><a href="#">Featured</a></li>
+                                        </ul>
                                     </div>
-                                </div>
-                                <div class="thmb_cntnt style2">
-                                    <ul class="tag mb0">
-                                        <li class="list-inline-item"><a href="#">{{ $bantin2->hinhthuc->ten_hinhthuc }}</a></li>
-                                        <li class="list-inline-item"><a href="#">Featured</a></li>
-                                    </ul>
-                                </div>
-                                <div class="thmb_cntnt style3">
-                                    <ul class="icon mb0">
-                                        <li class="list-inline-item"><a href="{{Route('compare.add',['id' => $bantin2->id])}}"><span class="flaticon-transfer-1"></span></a></li>
-                                        <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                    </ul>
-                                    <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                </div>
-                            </div>
-                            <div class="details">
-                                <div class="tc_content">
-                                    <p class="text-thm">{{ $bantin2->bds->loaibds->ten_loaiBDS }}</p>
-                                    <a href="{{ route('single',['slug' => $bantin2->slug]) }}">
-                                        <h4>{{ $bantin2->tieu_de }}</h4>
-                                    </a>
-                                    <p><span class="flaticon-placeholder"></span> {{ $bantin2->bds->dia_chi }}</p>
-                                    <ul class="prop_details mb0">
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Beds: 4</a></li>
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Baths: 2</a></li>
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Sq Ft: 5280</a></li>
-                                    </ul>
-                                </div>
-                                <div class="fp_footer">
-                                    <ul class="fp_meta float-left mb0">
-                                        <li class="list-inline-item"><a href="#"><img src="{{ asset('public/luanvan/images/property/pposter1.png')}}" alt="pposter1.png')}}"></a></li>
-                                        <li class="list-inline-item"><a href="#">{{ $bantin2->user->ho }} {{ $bantin2->user->ten }}</a></li>
-                                    </ul>
-                                    <div class="fp_pdate float-right">{{ $bantin2->created_at->diffForHumans() }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                    {{-- <div class="col-md-6 col-lg-4">
-                        <div class="feat_property home7 style4">
-                            <div class="thumb">
-                                <div class="fp_single_item_slider">
-                                    <div class="item">
-                                        <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp1.jpg')}}" alt="fp1.jpg')}}">
-                                    </div>
-                                    <div class="item">
-                                        <img class="img-whp" src="{{ asset('public/luanvan/images/property/fp2.jpg')}}" alt="fp2.jpg')}}">
+                                    <div class="thmb_cntnt style3">
+                                        <ul class="icon mb0">
+                                            <li class="list-inline-item"><a href="{{Route('compare.add',['id' => $bantin2->id])}}"><span class="flaticon-transfer-1"></span></a></li>
+                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                        </ul>
+                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
                                     </div>
                                 </div>
-                                <div class="thmb_cntnt style2">
-                                    <ul class="tag mb0">
-                                        <li class="list-inline-item"><a href="#">For Rent</a></li>
-                                        <li class="list-inline-item"><a href="#">Featured</a></li>
-                                    </ul>
-                                </div>
-                                <div class="thmb_cntnt style3">
-                                    <ul class="icon mb0">
-                                        <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                        <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                    </ul>
-                                    <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                </div>
-                            </div>
-                            <div class="details">
-                                <div class="tc_content">
-                                    <p class="text-thm">Apartment</p>
-                                    <a href="#">
-                                        <h4>Renovated Apartment</h4>
-                                    </a>
-                                    <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                    <ul class="prop_details mb0">
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Beds: 4</a></li>
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Baths: 2</a></li>
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Sq Ft: 5280</a></li>
-                                    </ul>
-                                </div>
-                                <div class="fp_footer">
-                                    <ul class="fp_meta float-left mb0">
-                                        <li class="list-inline-item"><a href="#"><img src="{{ asset('public/luanvan/images/property/pposter1.png')}}" alt="pposter1.png')}}"></a></li>
-                                        <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                    </ul>
-                                    <div class="fp_pdate float-right">4 years ago</div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <p class="text-thm">{{ $bantin2->bds->loaibds->ten_loaiBDS }}</p>
+                                        <div class="row" style="margin-left: 0px;">
+                                            <a href="{{ route('single',['slug' => $bantin2->slug]) }}">
+                                                <h4>{{ $bantin2->tieu_de }}</h4>
+                                            </a>
+                                            @if($tong != 0)
+                                            <div id="show_list_{{ $bantin2->id }}" data-rateyo-rating="{{ $total2 }}" style="margin-left:110px;"></div>
+                                            @endif
+                                        </div>
+                                        
+    
+                                        <p><span class="flaticon-placeholder"></span> {{ $bantin2->bds->dia_chi }}</p>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item"><a class="text-thm3" href="#">Beds: 4</a></li>
+                                            <li class="list-inline-item"><a class="text-thm3" href="#">Baths: 2</a></li>
+                                            <li class="list-inline-item"><a class="text-thm3" href="#">Sq Ft: 5280</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="fp_footer">
+                                        <ul class="fp_meta float-left mb0">
+                                            <li class="list-inline-item"><a href="#"><img src="{{ asset('public/luanvan/images/property/pposter1.png')}}" alt="pposter1.png')}}"></a></li>
+                                            <li class="list-inline-item"><a href="#">{{ $bantin2->user->ho }} {{ $bantin2->user->ten }}</a></li>
+                                        </ul>
+                                        <div class="fp_pdate float-right">{{ $bantin2->created_at->diffForHumans() }}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div> --}}
+                        <script src="{{ asset('public/rateyo/jquery.rateyo.min.js') }}"></script>
+    
+                        <script>
+                            $("#show_list_{{ $bantin2->id }}").rateYo({
+                                numStars: 5,
+                                starWidth: "18px",
+                                spacing: "3px",
+                                readOnly: true,
                     
-                    <div class="col-lg-12 mt20">
-                        <div class="mbp_pagination">
-                            <ul class="page_navigation">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                <li class="page-item"><a class="page-link" href="#">29</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><span class="flaticon-right-arrow"></span></a>
-                                </li>
-                            </ul>
+                            });
+                        </script>  
+                        @endforeach
+                        
+                        
+                        <div class="col-lg-12 mt20">
+                            <div class="mbp_pagination">
+                                <ul class="page_navigation">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">...</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">29</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#"><span class="flaticon-right-arrow"></span></a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -461,16 +444,16 @@ style2  navbar-scrolltofixed stricky main-menu
             @php 
                 foreach($bantin as $nha)
                 {
+                    ///
                     $batdongsan = $nha->bds;    
-                    $ho = $nha->user->ho;
-                    $ten = $nha->user->ten;
+                    $name = $nha->user->name;
                     $link = route('single',['slug' => $nha->slug]);
                     $giatien = number_format($nha->gia_tien,0,',','.');
                     $path = asset($batdongsan->path_hinh);
                     $qrcode = asset($batdongsan->qrcode);
                     
                     echo'addMarker({banhbao: {lat: '.$batdongsan->vido.',lng: '.$batdongsan->kinhdo.'},';
-                    echo "content: '<div style=width:270px><div><img style=width:270px;height:151px; src=$path ></div><div class=row><div class=col-md-8><div style=margin-top:5px;margin-bottom:5px;>Tiêu đề: <a href=$link style=color:blue> $nha->tieu_de </a></div><div style=margin-top:5px;margin-bottom:5px;>Người bán: <a href=# style=color:#90c923>$ho $ten</a></div><div style=margin-top:5px;margin-bottom:5px;>Giá: <span style=color:red>$giatien</span> đ/tháng</div></div><div class=col-md-4><div ><img style=width:60px;height:60px; src=$qrcode ></div></div></div><div>Địa chỉ: $batdongsan->dia_chi</div></div> '});";
+                    echo "content: '<div style=width:270px><div><img style=width:270px;height:151px; src=$path ></div><div class=row><div class=col-md-8><div style=margin-top:5px;margin-bottom:5px;>Tiêu đề: <a href=$link style=color:blue> $nha->tieu_de </a></div><div style=margin-top:5px;margin-bottom:5px;>Người bán: <a href=# style=color:#90c923>$name</a></div><div style=margin-top:5px;margin-bottom:5px;>Giá: <span style=color:red>$giatien</span> đ/tháng</div></div><div class=col-md-4><div ><img style=width:60px;height:60px; src=$qrcode ></div></div></div><div>Địa chỉ: $batdongsan->dia_chi</div></div> '});";
                     //muốn viêt dc model trong day phải khai bảng ở ngoài trước không nó sẽ lỗi
                     // style phải viet xác nhau mới nhận được
                     // viet lòng php không cần mở dây nhây kep nó tự hiệu

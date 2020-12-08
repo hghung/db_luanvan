@@ -21,6 +21,7 @@ class DbThanhvien extends Migration
             $table->integer('dien_thoai')->nullable();
             $table->string('email');
             
+            $table->string('name')->nullable();
             $table->string('ho')->nullable();
             $table->string('ten')->nullable();
 

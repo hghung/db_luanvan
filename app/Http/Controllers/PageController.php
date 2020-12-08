@@ -7,6 +7,7 @@ use App\Models\db_ct_taisan;
 use App\Models\db_ct_thuoctinh;
 use App\Models\db_datlich;
 use App\Models\db_hinhanh;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Session;
 
 use Illuminate\Http\Request;
@@ -58,10 +59,14 @@ class PageController extends Controller
 
         $bantin['taisan'] = db_ct_taisan::where('id_batdongsan','=',$bantin['bantin']->bds->id)->get(); // duyet mới hiện thị
 
-        $bantin['datlich'] = db_datlich::where('id_khachhang','=',Auth::user()->id)
+        if(Auth::check())
+        {
+            $bantin['datlich'] = db_datlich::where('id_khachhang','=',Auth::user()->id)
                                         ->where('id_bantin','=',$slug->id)
                                         ->where ('id_trangthai','!=',3)
                                         ->get();
+        }
+        
         // luot xem     
         views($bantin['bantin'])
         ->cooldown(Carbon::now()->addMinutes(1))

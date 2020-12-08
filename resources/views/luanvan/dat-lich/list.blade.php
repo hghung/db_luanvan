@@ -115,13 +115,27 @@ style2 menu-fixed main-menu
 																<span class="sr-only">Toggle Dropdown</span>
 															</button>
 															<div class="dropdown-menu">
-																<a class="dropdown-item" href="{{ route('datlich.pheduyet',['id' => 2]) }}">Phê duyệt</a>
-																<a class="dropdown-item" href="{{ route('datlich.huy',['id' => 3]) }}">Hủy</a>
+																<a class="dropdown-item" href="{{ route('datlich.pheduyet',['id' => $row->id]) }}">Phê duyệt</a>
+																<a class="dropdown-item" href="{{ route('datlich.huy',['id' => $row->id]) }}">Hủy</a>
 														  	</div>
 														@elseif($row->id_trangthai == 2)
 															<button type="button" class="btn btn-success">Đã duyệt</button>
+															<button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																<span class="sr-only">Toggle Dropdown</span>
+															</button>
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="{{ route('datlich.pheduyet',['id' => $row->id]) }}">Phê duyệt</a>
+																<a class="dropdown-item" href="{{ route('datlich.huy',['id' => $row->id]) }}">Hủy</a>
+														  	</div>
 														@elseif($row->id_trangthai == 3)
 															<button type="button" class="btn btn-danger">Đã hủy</button>
+															<button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																<span class="sr-only">Toggle Dropdown</span>
+															</button>
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="{{ route('datlich.pheduyet',['id' => $row->id]) }}">Phê duyệt</a>
+																<a class="dropdown-item" href="{{ route('datlich.huy',['id' => $row->id]) }}">Hủy</a>
+														  	</div>
 														@endif
 														</div>
 

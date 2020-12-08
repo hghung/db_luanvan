@@ -61,6 +61,15 @@ class db_bantin extends Model implements Viewable
         // (tên đường dẫn, 'khoa ngoại', khóa chính)
     }
 
+
+    public function ratingbt() // phải viêt liền ko được cách ra hoặc _
+    {
+        return $this->hasMany('App\Models\Rating','id_bantin','id'); 
+        
+        // từ sản phẩm cha ra con xài hasone
+        // (tên đường dẫn, 'khoa ngoại', khóa chính)
+    }
+
     public function user() // phải viêt liền ko được cách ra hoặc _
     {
         return $this->belongsTo('App\User','id_thanhvien','id'); 

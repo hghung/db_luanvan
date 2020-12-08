@@ -18,6 +18,15 @@ class User extends Authenticatable
     // protected $primaryKey = 'id_user'; 
     // để sử dụng bảng tbl_user của minh tạo ra, mặc định users của laravel nên phải đổi nó lại.
     use Notifiable;
+    public function rating() // phải viêt liền ko được cách ra hoặc _
+    {
+        return $this->hasOne('App\Models\Rating','id_user','id'); 
+        
+        // từ sản phẩm cha ra con xài hasone
+        // (tên đường dẫn, 'khoa ngoại', khóa chính)
+    }
+
+
     public function phuongxa() // phải viêt liền ko được cách ra hoặc _
     {
         return $this->belongsTo('App\Models\Ward','id_phuongxa','id'); 
@@ -46,16 +55,6 @@ class User extends Authenticatable
         // (tên đường dẫn, 'khoa ngoại', khóa chính)
     }
 
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password','username',
-    ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -73,5 +72,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    protected $guarded = [];
+
+    public function messages(){
+        return $this->hasMany(Message::class,'from');
+    }
 }
 
