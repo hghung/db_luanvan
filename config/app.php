@@ -169,7 +169,7 @@ return [
         CyrildeWit\EloquentViewable\EloquentViewableServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
-
+        LaravelFullCalendar\FullCalendarServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -234,7 +234,8 @@ return [
         'Toastr'  => Brian2694\Toastr\Facades\Toastr::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
-        
+        'Calendar' => LaravelFullCalendar\Facades\Calendar::class,
+
 
     ],
 

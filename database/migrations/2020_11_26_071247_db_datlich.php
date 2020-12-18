@@ -15,7 +15,8 @@ class DbDatlich extends Migration
     {
         Schema::create('db_datlich', function (Blueprint $table) {
             $table->id();
-            $table->date('ngay_hen');
+            $table->string('title')->nullable();
+            $table->date('start');
             $table->time('gio_hen');
 
 

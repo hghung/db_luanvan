@@ -4,6 +4,7 @@
 style2  navbar-scrolltofixed stricky main-menu
 @endsection
 @section('content')  
+<link rel="stylesheet" href="{{ asset('public/rateyo/jquery.rateyo.min.css') }}">
 
 <!-- Inner Page Breadcrumb -->
 	<section class="inner_page_breadcrumb">
@@ -54,6 +55,15 @@ style2  navbar-scrolltofixed stricky main-menu
 
 							{{--  --}}
 							@foreach($cart as $cart2)
+							@php
+								
+								$tong = \App\Models\Rating::where('id_bantin','=',$cart2->id)->sum('rating');
+								$count = \App\Models\Rating::where('id_bantin','=',$cart2->id)->count();
+								if($tong != 0)
+								{
+									$total2 = $tong / $count;
+								}
+                        	@endphp
 							<li class="list-inline-item">
 								<ul class="mc_child_list two text-center">
 									<li>
@@ -62,13 +72,16 @@ style2  navbar-scrolltofixed stricky main-menu
 												<a href="{{ route('compare.del',['id' => $cart2->rowId]) }}"><span class="flaticon-close"></span></a>
 												<img style="width:260px; height:180px;" class="img-fluid " src="{{asset($cart2->options->img)}}" alt="1.jpg')}}">
 												<div class="price">
-													{{  number_format($cart2->price,0,',','.') }} đ
+													{{  number_format($cart2->price,0,',','.') }} <small>đ</small>
 													@if($cart2->options->trangthai == 'Thuê')
 													<span class="mnth">/th</span>
 													@endif
 												</div>
 											</div>
 											<div class="details">
+												@if($tong != 0)
+												<div id="sosanh_{{ $cart2->id }}" data-rateyo-rating="{{ $total2  }}" style="width: 145px;margin-left: 56px;margin-bottom: 5px;"></div>
+												@endif
 												<h4>{{ $cart2->name }}</h4>
 												<p>{{ $cart2->options->loaibds }}</p>
 											</div>
@@ -99,6 +112,20 @@ style2  navbar-scrolltofixed stricky main-menu
 									</li>
 								</ul>
 							</li>
+
+							<script src="{{ asset('public/rateyo/jquery.rateyo.min.js') }}"></script>
+
+							<script>
+								 $("#sosanh_{{ $cart2->id }}").rateYo({
+									 numStars: 5,
+									 starWidth: "25px",
+									 spacing: "5px",
+									 readOnly: true,
+					 
+								 });
+							 </script>
+
+
 							@endforeach
 							{{--  --}}
 
@@ -137,6 +164,5 @@ style2  navbar-scrolltofixed stricky main-menu
     <script src="{{asset('public/toastr/toastr.min.js')}}" ></script>
            
    	{!! Toastr::message() !!}
-
-    
+	  
 @endsection

@@ -33,9 +33,16 @@ Route::post('posts', 'TestController@postPost')->name('posts.post');
 Route::get('/test7','TestController@test7');
 Route::post('/test7','TestController@post_test7')->name('post.test7');
 
+// calender // test8
+// Route::get('/fullcalendar','TestController@test8');
+// Route::post('fullcalendar/create','TestController@create')->name('test8.create');
+// Route::post('fullcalendar/update','TestController@update')->name('test8.create');
+// Route::post('fullcalendar/delete','TestController@destroy')->name('test8.delete');
 
+//test 9
+Route::get('/test9','TestController@test9')->name('test9.calendar');
 
-
+//end calender
 
 
 //dropzone
@@ -111,7 +118,6 @@ Route::group(['prefix'=>'tai-khoan','middleware'=>'login_account'],function(){
 
 	Route::get('/','TaikhoanController@dashbord')->name('taikhoan.dashbord');
 	Route::get('/backup','BackupController@dashbord')->name('taikhoan.backup');
-	Route::get('/thong-ke','ThongkeController@dashbord')->name('taikhoan.thongke');
 
 	
 
@@ -130,6 +136,23 @@ Route::group(['prefix'=>'tai-khoan','middleware'=>'login_account'],function(){
 		Route::get('/bo-loc/{id}','BookingController@ajax_boloc')-> name('datlich.boloc');
 
 	});
+
+	// danh-gia
+	Route::group(['prefix'=>'thong-ke','middleware'=>'check_mess'],function(){
+		Route::get('/','ChartController@index')->name('taikhoan.thongke');
+
+
+
+	}); 
+	
+
+	// danh-gia
+	Route::group(['prefix'=>'danh-gia','middleware'=>'check_mess'],function(){
+		Route::get('/','DanhgiaController@index')->name('review.index');
+		Route::get('/delete-{id}','DanhgiaController@delete')->name('review.del');
+
+
+	}); 
 
 	// chat
 	Route::group(['prefix'=>'tin-nhan','middleware'=>'check_mess'],function(){

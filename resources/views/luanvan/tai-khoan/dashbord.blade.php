@@ -3,6 +3,17 @@
 @section('header-account')
 style2 menu-fixed main-menu
 @endsection
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css"  />
+<style>
+    .fc-day-grid-event
+    {
+        background: #ff5a5f;
+    }
+    
+    .fc-title{
+        color: #fff ;
+    }
+</style>
 
 @section('content')
     @include('luanvan.tai-khoan.header-left')
@@ -85,12 +96,16 @@ style2 menu-fixed main-menu
                                 </div>
                             </div>
                         </div>
+                        {{-- chart --}}
                         <div class="col-xl-7">
                             <div class="application_statics">
-                                <h4>View Statistics</h4>
-                                <div class="c_container"></div>
+                                <h4>Lịch hẹn của bạn</h4>
+                                <div class="response"></div>
+                                <div id='calendar'></div>  
+
                             </div>
                         </div>
+                        {{-- end chart --}}
                         <div class="col-xl-5">
                             <div class="recent_job_activity">
                                 <h4 class="title">Hoạt đồng gần nhất của bạn</h4>
@@ -139,10 +154,42 @@ style2 menu-fixed main-menu
         </div>
     </section>
 
+    
+    @section('calendar')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.1/jquery.min.js" ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js" ></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js" ></script>
+    @endsection
+    //////////////
+    <script>
+        $(document).ready(function () {
+            var SITEURL = "{{route('test9.calendar')}}";
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+            });
+            var calendar = $('#calendar').fullCalendar({
+               // editable: true, // sua di chuyen ghi chu
+                events: SITEURL,
+                displayEventTime: true,
+                selectable: true,
+                selectHelper: true,
+            });
+            
+
+        });
+    </script>
+
     <script src="{{asset('public/toastr/jquery.min.js')}}"></script>
 
     <script src="{{asset('public/toastr/toastr.min.js')}}" ></script>
            
     {!! Toastr::message() !!}
-       
+   
+    
+    
+    
 @endsection

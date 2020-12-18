@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\db_bantin;
+use App\Models\db_datlich;
 use App\Rating;
 use Illuminate\Support\collection;
+//
+Use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
+use Response;
+use App\Event;
+/////
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -44,7 +51,6 @@ class TestController extends Controller
         return view('test.test6',$post);
     }
 
-
     public function postPost(Request $request)
     {
         request()->validate(['rate' => 'required']);
@@ -81,5 +87,67 @@ class TestController extends Controller
         return Redirect()->back();
         
     }
+    ////////////////////////////////////////////////////////////////////////////
+    public function test9(Request $rq)
+    {
+        if(request()->ajax()) 
+        {        
+            $start =  Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+            $data = db_datlich::where('id_nguoidang','=',Auth::user()->id)
+                                ->where('id_trangthai','=',2)
+                                ->whereDate('start', '>=', $start)
+                                ->get(['id','title','start']);
+
+                                //wheredate so sanh ngay lon hoac = ngay hien tai
+            return Response::json($data);
+        }
+        return view('test.test9');
+
+    }
+
+    public function test8(Request $rq)
+    {
+        if(request()->ajax()) 
+        {        
+            $start = (!empty($_GET["start"])) ? ($_GET["start"]) : ('');
+            $end = (!empty($_GET["end"])) ? ($_GET["end"]) : ('');
+
+            $data = Event::whereDate('start', '>=', $start)->whereDate('end',   '<=', $end)->get(['id','title','start', 'end']);
+            return Response::json($data);
+        }
+        return view('test.test8');
+
+    }
+    public function create(Request $request)
+    {  
+        
+        $insertArr = [ 'title' => $request->title,
+                       'start' => $request->start,
+                       'end' => $request->end
+                    ];
+
+        $event = Event::insert($insertArr);   
+        return Response::json($event);
+    }
+     
+ 
+    public function update(Request $request)
+    {   
+        $where = array('id' => $request->id);
+        $updateArr = ['title' => $request->title,'start' => $request->start, 'end' => $request->end];
+        $event  = Event::where($where)->update($updateArr);
+ 
+        return Response::json($event);
+    } 
+ 
+ 
+    public function destroy(Request $request)
+    {
+        $event = Event::where('id',$request->id)->delete();
+   
+        return Response::json($event);
+    }    
+    //////////////////////////////////////////////////////////
+
 
 }

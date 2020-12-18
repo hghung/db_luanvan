@@ -97,7 +97,7 @@ style2 menu-fixed main-menu
 														<div class="details">
 															<div class="tc_content">
 																<div class="row">
-																	<h4 style="margin-left: 20px; margin-right:20px;margin-bottom: 0px;margin-top: 30px;">{{date("d-m-Y",strtotime($row->ngay_hen))}} </h4>
+																	<h4 style="margin-left: 20px; margin-right:20px;margin-bottom: 0px;margin-top: 30px;">{{date("d-m-Y",strtotime($row->start))}} </h4>
 																	<p style="margin-left: 35px;">{{date("H:i A",strtotime($row->gio_hen))}}</p>
 																</div>
 															</div>

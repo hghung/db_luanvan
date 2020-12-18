@@ -68,13 +68,14 @@
         </li>
 
         {{--    --}}
-        <li class="treeview">
-          <a href="page-my-review.html"><i class="flaticon-chat"></i><span> Đánh giá</span><i class="fa fa-angle-down pull-right"></i></a>
-          <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle"></i> My Reviews</a></li>
-              <li><a href="#"><i class="fa fa-circle"></i> Visitor Reviews</a></li>
-          </ul>
+        <li>
+          <a href="{{ route('review.index') }}">
+            <i class="flaticon-chat"></i> 
+            <span> Đánh giá</span>
+          </a>
         </li>
+
+        
         {{--  --}}
         <li>
           <a href="{{ route('dangxuat') }}">

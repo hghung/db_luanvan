@@ -20,7 +20,9 @@ class BookingController extends Controller
             $format_ngay = date('Y-m-d', strtotime($rq->ngay_hen));
             $datlich = new db_datlich;
             $datlich->noi_dung = $rq->noi_dung;
-            $datlich->ngay_hen = $format_ngay;
+            //ngay hen
+            $datlich->start = $format_ngay;
+            //
             $datlich->gio_hen = $rq->gio_hen;
             $datlich->ngay_tao = Carbon::now('Asia/Ho_Chi_Minh');
             $datlich->cap_nhat = Carbon::now('Asia/Ho_Chi_Minh');
@@ -28,8 +30,11 @@ class BookingController extends Controller
             $datlich->id_bantin = $id;
             $datlich->id_nguoidang = $bantin->user->id;
             $datlich->id_khachhang = Auth::user()->id;
+            // 
+            $datlich->title = "Lich hẹn: ".$rq->gio_hen;
             // dd($datlich);
             $datlich->save();
+
             Toastr::success('Đặt lịch thành công chờ người đăng xử lí', 'Thông báo', ["positionClass" => "toast-top-right"]);
         }
         elseif($rq->nhac_lich)
